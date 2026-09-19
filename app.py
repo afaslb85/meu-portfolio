@@ -6,10 +6,11 @@ st.set_page_config(page_title="Análise de Portfólio", layout="wide")
 st.title("📊 Análise do Portfólio de Investimentos")
 
 # Upload do ficheiro CSV
-uploaded_file = st.sidebar.file_uploader("Carrega o teu ficheiro CSV", type=["csv"])
+uploaded_file = st.sidebar.file_uploader("Carrega o teu ficheiro", type=["csv", "xlsx", "xls"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    df = pd.read_excel(uploaded_file) if uploaded_file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(uploaded_file)
+
     
     # Cálculo do valor investido por posição
     df['total_investido'] = df['quantidade'] * df['preco_medio']
